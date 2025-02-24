@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const Cryptr = require("cryptr");
 const cryptr = new Cryptr("DICT_Region_1_ILCDB");
 const QRCode = require("qrcode");
@@ -8,7 +8,7 @@ const app = express();
 const session = require("express-session");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-const port = process.env.DB_PORT || 3000;
+const port = process.env.PORT;
 const con = require("./db/connection");
 const fs = require("fs");
 const methodOverride = require("method-override");
@@ -75,8 +75,7 @@ function decryptCertificateCode(encryptedData) {
   return cryptr.decrypt(encryptedData);
 }
 
-// Routes
-app.get("/signin", (req, res) => {
+app.get("/", (req, res) => {
   if (req.session.username) {
     return res.redirect("/home"); // If already logged in, redirect to home
   }
@@ -304,7 +303,9 @@ app.post("/generate-qrcode", isLoggedIn, async (req, res) => {
     // Proceed with QR Code Generation
     const certificate_code = `ILCDB_R1_${firstname}-${middlename}-${lastname}-${course}-${serial_number}-${organization}-${venue}-${formatted_date}`;
     const hash_code = encryptCertificateCode(certificate_code); // Generate a URL for verification
-    const verification_url = `https://certificate-verification-qr-generator.onrender.com/verify?code=${encodeURIComponent(serial_number)}`;
+    const verification_url = `https://certificate-verification-qr-generator.onrender.com/verify?code=${encodeURIComponent(
+      serial_number
+    )}`;
     const qr_image_path = await QRGenerate(verification_url, certificate_code);
 
     await con
