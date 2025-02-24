@@ -67,12 +67,8 @@ app.get("/home", isLoggedIn, (req, res) => {
   });
 });
 
-function encryptCertificateCode(data) {
-  return cryptr.encrypt(data);
-}
-
-function decryptCertificateCode(encryptedData) {
-  return cryptr.decrypt(encryptedData);
+function hashCertificateCode(data) {
+  return crypto.createHash("sha256").update(data).digest("hex"); // 64 chars
 }
 
 app.get("/", (req, res) => {
@@ -302,7 +298,7 @@ app.post("/generate-qrcode", isLoggedIn, async (req, res) => {
     });
     // Proceed with QR Code Generation
     const certificate_code = `ILCDB_R1_${firstname}-${middlename}-${lastname}-${course}-${serial_number}-${organization}-${venue}-${formatted_date}`;
-    const hash_code = encryptCertificateCode(certificate_code); // Generate a URL for verification
+    const hash_code = hashCertificateCode(certificate_code); // Generate a URL for verification
     const verification_url = `https://certificate-verification-qr-generator.onrender.com/verify?code=${encodeURIComponent(
       serial_number
     )}`;
@@ -481,7 +477,7 @@ app.put("/edit_generated_qr_code/:id", isLoggedIn, async (req, res) => {
 
     // Proceed with QR Code Generation
     const certificate_code = `DICT_ILCDB_R1-${firstname}_${middlename}_${lastname}-${course}-${serial_number}-${organization}-${venue}-${formatted_date}`;
-    const hash_code = encryptCertificateCode(certificate_code); // Generate a URL for verification
+    const hash_code = hashCertificateCode(certificate_code); // Generate a URL for verification
     const verification_url = `http://localhost:3000/verify?code=${encodeURIComponent(
       serial_number
     )}`;

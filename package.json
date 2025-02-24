@@ -10,6 +10,7 @@
   "author": "Judy Ann Parica Flores",
   "license": "ISC",
   "dependencies": {
+    "crypto": "^1.0.1",
     "cryptr": "^6.0.2",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
