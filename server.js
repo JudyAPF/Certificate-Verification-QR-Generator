@@ -478,7 +478,7 @@ app.put("/edit_generated_qr_code/:id", isLoggedIn, async (req, res) => {
     // Proceed with QR Code Generation
     const certificate_code = `DICT_ILCDB_R1-${firstname}_${middlename}_${lastname}-${course}-${serial_number}-${organization}-${venue}-${formatted_date}`;
     const hash_code = hashCertificateCode(certificate_code); // Generate a URL for verification
-    const verification_url = `http://localhost:3000/verify?code=${encodeURIComponent(
+    const verification_url = `https://certificate-verification-qr-generator.onrender.com/verify?code=${encodeURIComponent(
       serial_number
     )}`;
     const qr_image_path = await QRGenerate(verification_url, certificate_code);
