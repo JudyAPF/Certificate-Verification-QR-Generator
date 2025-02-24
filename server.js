@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Cryptr = require("cryptr");
 const cryptr = new Cryptr("DICT_Region_1_ILCDB");
 const QRCode = require("qrcode");
@@ -7,7 +8,7 @@ const app = express();
 const session = require("express-session");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-const port = 3000;
+const port = process.env.DB_PORT || 3000;
 const con = require("./db/connection");
 const fs = require("fs");
 const methodOverride = require("method-override");
