@@ -14,6 +14,7 @@ const fs = require("fs");
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 const sharp = require("sharp");
+const crypto = require("crypto");
 
 // function certificateCode(fullname, courses, organization, venue, date) {
 // return ${fullname}-${courses}-${organization}-${venue}-${date};
