@@ -32,7 +32,7 @@ app.use(
 // Protect routes
 const isLoggedIn = (req, res, next) => {
   if (!req.session.username) {
-    return res.redirect("/signin");
+    return res.redirect("/");
   }
   next();
 };
@@ -648,5 +648,5 @@ app.get("/signout", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running...`);
 });
