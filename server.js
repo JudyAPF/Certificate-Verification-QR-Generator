@@ -32,7 +32,7 @@ app.use(
 // Protect routes
 const isLoggedIn = (req, res, next) => {
   if (!req.session.username) {
-    return res.redirect("/");
+    return res.redirect("/signin");
   }
   next();
 };
@@ -83,7 +83,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/", (req, res) => {
+app.post("/signin", (req, res) => {
   const { username, password } = req.body;
   const errors = {}; // Check if fields are empty
 
@@ -643,7 +643,7 @@ app.get("/signout", (req, res) => {
     if (err) {
       return res.status(500).send("Failed to log out");
     }
-    res.redirect("/");
+    res.redirect("/signin");
   });
 });
 
