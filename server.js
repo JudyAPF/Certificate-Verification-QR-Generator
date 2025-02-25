@@ -32,7 +32,7 @@ app.use(
 // Protect routes
 const isLoggedIn = (req, res, next) => {
   if (!req.session.username) {
-    return res.redirect("/signin");
+    return res.redirect("/");
   }
   next();
 };
@@ -83,7 +83,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/signin", (req, res) => {
+app.post("/", (req, res) => {
   const { username, password } = req.body;
   const errors = {}; // Check if fields are empty
 
